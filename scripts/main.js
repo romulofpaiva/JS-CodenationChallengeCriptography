@@ -1,22 +1,21 @@
-const user_token = 'ecc3c643bf95405ac74a00f3a8bb4c4200f25b29'; // substituir pelo token do usuário no codenation
-
+var user_token;
 var answer = '';
 
 async function getData() {
+  user_token = document.getElementById("userToken").value;
+
   try {
     const response = await axios.get(`https://api.codenation.dev/v1/challenge/dev-ps/generate-data?token=${user_token}`);
     answer = response.data;
 
+    document.getElementById("encryptedText").value = answer.cifrado;
+
     decifra();
     
-    await sendData();
-
   } catch(error) {
-    console.log(error);
+    document.getElementById("result").value = error;
   }
 }
-
-getData();
 
 function decifra() {
   const {numero_casas, cifrado} = answer;
@@ -37,7 +36,8 @@ function decifra() {
       answer.decifrado += alfabeto[pos];
     }
   });
-  // console.log(answer.decifrado);
+
+  document.getElementById("decryptedText").value = answer.decifrado;
 }
 
 // fonte: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest
@@ -55,7 +55,7 @@ async function sendData() {
 
   const answer_json = JSON.stringify(answer);
 
-  console.log(answer_json);
+  // console.log(answer_json);
 
   var file = new File([answer_json], "answer.json", {
     type: "application/json",
@@ -74,9 +74,17 @@ async function sendData() {
         }
       }
     );
-  
-    console.log(response);  
+
+    let retorno = "";
+    if(response.status == 200){
+      retorno = `Nota: ${response.data.score}`
+    }
+    else {
+      retorno = `Status: ${response.status} - ${response.statusText}` 
+    }
+
+    document.getElementById("result").value = retorno;
   } catch(error) {
-    console.log(error);
+    document.getElementById("result").value = error;
   }
 }

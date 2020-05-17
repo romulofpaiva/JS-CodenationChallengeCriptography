@@ -3,13 +3,29 @@
 <head>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <title>Page Title</title>
+  <title>Codenation - Desafio: Criptografia de Júlio César</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src='/scripts/main.js'></script>
+  <script src='../scripts/main.js'></script>
 </head>
 <body>
-  
+  <label>Codenation User Token</label>
+  <input type="text" id="userToken" size="80px">
+  <button onclick="getData()">Enviar</button>
+  <br>
+  <label>Texto Encriptado</label>
+  <input type="text" id="encryptedText" disabled size="80px">
+  <br>
+  <label>Texto Decriptado</label>
+  <input type="text" id="decryptedText" disabled size="80px">
+  <br>
+  <br>
+  <button onclick="sendData()">Enviar Resposta</button>
+  <br>
+  <br>
+  <label>Resultado</label>
+  <br>
+  <input type="text" id="result" readonly size="80px"></label>
 </body>
 </html>
